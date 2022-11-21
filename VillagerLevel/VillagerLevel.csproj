@@ -36,6 +36,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="netstandard" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BepInEx">
@@ -78,9 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardSkill.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches.cs" />
+    <Compile Include="Skill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
