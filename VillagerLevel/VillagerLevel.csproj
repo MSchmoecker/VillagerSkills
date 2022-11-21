@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSkill.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="VillagerLevel.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches.cs" />

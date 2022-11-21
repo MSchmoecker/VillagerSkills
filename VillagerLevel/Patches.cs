@@ -11,12 +11,12 @@ namespace VillagerLevel {
         public static void FinishBlueprint(CardData __instance) {
             foreach (GameCard gameCard in __instance.MyGameCard.GetAllCardsInStack()) {
                 if (gameCard.CardData is Villager villager) {
-                    Level level = Level.GetVillagerLevel(villager);
+                    VillagerLevel villagerLevel = VillagerLevel.GetVillagerLevel(villager);
 
                     if (__instance.MyGameCard.TimerActionId == "finish_blueprint") {
-                        level.BuildingXp += 5;
+                        villagerLevel.AddExperience(Skill.Building, 5);
                     } else {
-                        level.CraftingXp += 5;
+                        villagerLevel.AddExperience(Skill.Crafting, 5);
                     }
                 }
             }
@@ -28,38 +28,38 @@ namespace VillagerLevel {
         public static void CompleteHarvest(CardData __instance) {
             foreach (GameCard gameCard in __instance.MyGameCard.GetAllCardsInStack()) {
                 if (gameCard.CardData is Villager villager) {
-                    Level level = Level.GetVillagerLevel(villager);
+                    VillagerLevel villagerLevel = VillagerLevel.GetVillagerLevel(villager);
                     Tuple<Skill, float> skill = CardSkill.GetSkillXp(__instance);
-                    level.AddExperience(skill.Item1, skill.Item2);
+                    villagerLevel.AddExperience(skill.Item1, skill.Item2);
                 }
             }
         }
 
         [HarmonyPatch(typeof(Villager), nameof(Villager.GetActionTimeModifier)), HarmonyPostfix]
         public static void GetActionTimeModifier(Villager __instance, CardData baseCard, ref float __result) {
-            Level level = Level.GetVillagerLevel(__instance);
+            VillagerLevel villagerLevel = VillagerLevel.GetVillagerLevel(__instance);
             Skill skill = CardSkill.GetSkill(baseCard);
-            __result *= Level.GetActionTime(level.GetLevel(skill));
+            __result *= villagerLevel.GetActionTimeModifier(skill);
         }
 
         [HarmonyPatch(typeof(CardData), nameof(CardData.SetExtraCardData), typeof(object), typeof(List<ExtraCardData>)), HarmonyPostfix]
         public static void SetExtraCardData(object o, List<ExtraCardData> extraData) {
             if (o is Villager villager) {
-                Level.GetVillagerLevel(villager).SetExtraCardData(extraData);
+                VillagerLevel.GetVillagerLevel(villager).SetExtraCardData(extraData);
             }
         }
 
         [HarmonyPatch(typeof(CardData), nameof(CardData.GetExtraCardData), typeof(object)), HarmonyPostfix]
         public static void GetExtraCardData(object o, ref List<ExtraCardData> __result) {
             if (o is Villager villager) {
-                __result.AddRange(Level.GetVillagerLevel(villager).GetExtraCardData());
+                __result.AddRange(VillagerLevel.GetVillagerLevel(villager).GetExtraCardData());
             }
         }
 
         [HarmonyPatch(typeof(CardData), nameof(CardData.Description), MethodType.Getter), HarmonyPostfix]
         public static void Description(CardData __instance, ref string __result) {
             if (__instance is Villager villager) {
-                __result = __result.Trim() + Level.GetVillagerLevel(villager).GetDescription();
+                __result = __result.Trim() + VillagerLevel.GetVillagerLevel(villager).GetDescription();
             }
         }
     }
