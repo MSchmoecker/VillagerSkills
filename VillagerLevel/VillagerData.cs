@@ -8,7 +8,7 @@ namespace VillagerLevel {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
 
         private static readonly Dictionary<string, Skill> AttributeToSkill = new Dictionary<string, Skill>();
-        private static readonly Dictionary<Villager, VillagerData> VillagerDataCache = new Dictionary<Villager, VillagerData>();
+        private static readonly Dictionary<string, VillagerData> VillagerDataCache = new Dictionary<string, VillagerData>();
 
         static VillagerData() {
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
@@ -22,13 +22,13 @@ namespace VillagerLevel {
             }
         }
 
-        public static VillagerData GetVillagerData(Villager villager) {
-            if (VillagerDataCache.TryGetValue(villager, out VillagerData villagerData)) {
+        public static VillagerData GetVillagerData(string uniqueId) {
+            if (VillagerDataCache.TryGetValue(uniqueId, out VillagerData villagerData)) {
                 return villagerData;
             }
 
             villagerData = new VillagerData();
-            VillagerDataCache[villager] = villagerData;
+            VillagerDataCache[uniqueId] = villagerData;
             return villagerData;
         }
 
