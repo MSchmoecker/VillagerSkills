@@ -11,8 +11,6 @@ namespace VillagerLevel {
                 if (gameCard.CardData is Villager villager) {
                     if (__instance.MyGameCard.TimerActionId == "finish_blueprint") {
                         villager.GetVillagerData().AddExperience(Skill.Building, 5);
-                    } else {
-                        villager.GetVillagerData().AddExperience(Skill.Crafting, 5);
                     }
                 }
             }

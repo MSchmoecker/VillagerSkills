@@ -3,7 +3,6 @@
         Woodcutting,
         Mining,
         Farming,
-        Crafting,
         Fishing,
         Exploring,
         Building,

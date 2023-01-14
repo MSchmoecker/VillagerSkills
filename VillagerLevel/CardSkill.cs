@@ -34,7 +34,7 @@ namespace VillagerLevel {
             }
 
             Log.LogWarning("Unknown skill with card: " + id);
-            return new Tuple<Skill, float>(Skill.Crafting, 5f);
+            return new Tuple<Skill, float>(Skill.Building, 0f);
         }
     }
 }
