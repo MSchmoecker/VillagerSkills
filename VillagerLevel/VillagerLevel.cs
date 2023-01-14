@@ -37,7 +37,7 @@ namespace VillagerLevel {
         }
 
         public IEnumerable<ExtraCardData> GetExtraCardData() {
-            return experience.Select(pair => new ExtraCardData(SkillToAttributeName(pair.Key), GetLevel(pair.Key)));
+            return experience.Select(pair => new ExtraCardData(SkillToAttributeName(pair.Key), pair.Value));
         }
 
         public void SetExtraCardData(List<ExtraCardData> extraData) {
