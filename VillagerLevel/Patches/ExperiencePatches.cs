@@ -9,12 +9,10 @@ namespace VillagerLevel {
         public static void FinishBlueprint(CardData __instance) {
             foreach (GameCard gameCard in __instance.MyGameCard.GetAllCardsInStack()) {
                 if (gameCard.CardData is Villager villager) {
-                    VillagerLevel villagerLevel = VillagerLevel.GetVillagerLevel(villager);
-
                     if (__instance.MyGameCard.TimerActionId == "finish_blueprint") {
-                        villagerLevel.AddExperience(Skill.Building, 5);
+                        villager.GetVillagerData().AddExperience(Skill.Building, 5);
                     } else {
-                        villagerLevel.AddExperience(Skill.Crafting, 5);
+                        villager.GetVillagerData().AddExperience(Skill.Crafting, 5);
                     }
                 }
             }
@@ -26,9 +24,8 @@ namespace VillagerLevel {
         public static void CompleteHarvest(CardData __instance) {
             foreach (GameCard gameCard in __instance.MyGameCard.GetAllCardsInStack()) {
                 if (gameCard.CardData is Villager villager) {
-                    VillagerLevel villagerLevel = VillagerLevel.GetVillagerLevel(villager);
                     Tuple<Skill, float> skill = CardSkill.GetSkillXp(__instance);
-                    villagerLevel.AddExperience(skill.Item1, skill.Item2);
+                    villager.GetVillagerData().AddExperience(skill.Item1, skill.Item2);
                 }
             }
         }

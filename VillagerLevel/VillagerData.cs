@@ -4,32 +4,32 @@ using System.Linq;
 using UnityEngine;
 
 namespace VillagerLevel {
-    public class VillagerLevel {
+    public class VillagerData {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
 
         private static readonly Dictionary<string, Skill> AttributeToSkill = new Dictionary<string, Skill>();
-        private static readonly Dictionary<Villager, VillagerLevel> VillagerLevels = new Dictionary<Villager, VillagerLevel>();
+        private static readonly Dictionary<Villager, VillagerData> VillagerDataCache = new Dictionary<Villager, VillagerData>();
 
-        static VillagerLevel() {
+        static VillagerData() {
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
                 AttributeToSkill.Add(SkillToAttributeName(skill), skill);
             }
         }
 
-        private VillagerLevel() {
+        private VillagerData() {
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
                 experience.Add(skill, 0);
             }
         }
 
-        public static VillagerLevel GetVillagerLevel(Villager villager) {
-            if (VillagerLevels.TryGetValue(villager, out VillagerLevel level)) {
-                return level;
+        public static VillagerData GetVillagerData(Villager villager) {
+            if (VillagerDataCache.TryGetValue(villager, out VillagerData villagerData)) {
+                return villagerData;
             }
 
-            level = new VillagerLevel();
-            VillagerLevels[villager] = level;
-            return level;
+            villagerData = new VillagerData();
+            VillagerDataCache[villager] = villagerData;
+            return villagerData;
         }
 
         public void AddExperience(Skill skill, float xp) {
