@@ -80,10 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSkill.cs" />
+    <Compile Include="Patches\CardDataPatches.cs" />
+    <Compile Include="Patches\ExperiencePatches.cs" />
+    <Compile Include="Patches\Patches.cs" />
+    <Compile Include="Patches\SkillLevelPatches.cs" />
     <Compile Include="VillagerLevel.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mod.cs" />
-    <Compile Include="Patches.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
