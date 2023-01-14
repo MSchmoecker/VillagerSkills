@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     public class VillagerData {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
         public int Age { get; set; } = 16;

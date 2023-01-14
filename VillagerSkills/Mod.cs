@@ -1,11 +1,11 @@
 ﻿using BepInEx;
 using HarmonyLib;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     [BepInPlugin(GUID, Name, Version)]
     public class Mod : BaseUnityPlugin {
         public const string Name = "Villager Level";
-        public const string GUID = "com.maxsch.stacklands.villagerlevel";
+        public const string GUID = "com.maxsch.stacklands.villagerskills";
         public const string Version = "0.0.0";
 
         private static Harmony harmony;

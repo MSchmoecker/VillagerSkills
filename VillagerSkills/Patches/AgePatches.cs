@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using HarmonyLib;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     [HarmonyPatch]
     public static class AgePatches {
         [HarmonyPatch(typeof(EndOfMonthCutscenes), nameof(EndOfMonthCutscenes.FeedVillagers)), HarmonyPostfix]

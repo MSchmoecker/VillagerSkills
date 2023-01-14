@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     public static class CardSkill {
         public static Skill GetSkill(CardData cardData) {
             return Get(cardData).Item1;

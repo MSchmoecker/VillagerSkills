@@ -1,7 +1,7 @@
 ﻿using System;
 using HarmonyLib;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     [HarmonyPatch]
     public static class ExperiencePatches {
         [HarmonyPrefix]

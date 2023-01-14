@@ -7,8 +7,8 @@
     <ProjectGuid>{CBC056EC-7637-4387-B510-CC7887089C43}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VillagerLevel</RootNamespace>
-    <AssemblyName>VillagerLevel</AssemblyName>
+    <RootNamespace>VillagerSkills</RootNamespace>
+    <AssemblyName>VillagerSkills</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -94,7 +94,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <OUTPUT_NAME>VillagerLevel</OUTPUT_NAME>
+    <OUTPUT_NAME>VillagerSkills</OUTPUT_NAME>
     <R2MM_PROFILE>Small</R2MM_PROFILE>
   </PropertyGroup>
   <PropertyGroup>

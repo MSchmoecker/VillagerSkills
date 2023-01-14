@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillagerLevel", "VillagerLevel\VillagerLevel.csproj", "{CBC056EC-7637-4387-B510-CC7887089C43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillagerSkills", "VillagerSkills\VillagerSkills.csproj", "{CBC056EC-7637-4387-B510-CC7887089C43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

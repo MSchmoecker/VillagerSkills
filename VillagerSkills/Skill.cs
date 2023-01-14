@@ -1,4 +1,4 @@
-﻿namespace VillagerLevel {
+﻿namespace VillagerSkills {
     public enum Skill {
         Woodcutting,
         Mining,

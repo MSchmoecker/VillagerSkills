@@ -1,6 +1,6 @@
 ﻿using BepInEx.Logging;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     /// <summary>
     /// Helper class for properly logging from static contexts.
     /// </summary>

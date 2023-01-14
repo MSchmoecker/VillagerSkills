@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace VillagerLevel {
+namespace VillagerSkills {
     [HarmonyPatch]
     public static class SkillLevelPatches {
         [HarmonyPatch(typeof(Villager), nameof(Villager.GetActionTimeModifier)), HarmonyPostfix]
