@@ -6,6 +6,7 @@ using UnityEngine;
 namespace VillagerLevel {
     public class VillagerData {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
+        public int Age { get; set; } = 16;
 
         private static readonly Dictionary<string, Skill> AttributeToSkill = new Dictionary<string, Skill>();
         private static readonly Dictionary<string, VillagerData> VillagerDataCache = new Dictionary<string, VillagerData>();
@@ -37,13 +38,21 @@ namespace VillagerLevel {
         }
 
         public IEnumerable<ExtraCardData> GetExtraCardData() {
-            return experience.Select(pair => new ExtraCardData(SkillToAttributeName(pair.Key), pair.Value));
+            foreach (ExtraCardData extraCardData in experience.Select(pair => new ExtraCardData(SkillToAttributeName(pair.Key), pair.Value))) {
+                yield return extraCardData;
+            }
+
+            yield return new ExtraCardData($"vl_age", Age);
         }
 
         public void SetExtraCardData(List<ExtraCardData> extraData) {
             foreach (ExtraCardData data in extraData) {
                 if (AttributeToSkill.TryGetValue(data.AttributeId, out Skill skill)) {
                     experience[skill] = data.FloatValue;
+                }
+
+                if (data.AttributeId == "vl_age") {
+                    Age = data.IntValue;
                 }
             }
         }
@@ -61,11 +70,14 @@ namespace VillagerLevel {
         }
 
         private string GetLevelString(Skill skill, float xp) {
-            return $"{skill.ToString()} Level {GetLevel(skill)}, {xp}";
+            return $"{skill.ToString()} {GetLevel(skill)}";
         }
 
         public string GetDescription() {
-            return $"{Environment.NewLine}{Environment.NewLine}" +
+            return $"{Environment.NewLine}" +
+                   $"<i>Age {Age} Moons</i>" +
+                   $"{Environment.NewLine}" +
+                   $"{Environment.NewLine}" +
                    string.Join(Environment.NewLine, experience.Select(pair => GetLevelString(pair.Key, pair.Value)));
         }
     }

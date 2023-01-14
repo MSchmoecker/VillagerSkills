@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSkill.cs" />
+    <Compile Include="Patches\AgePatches.cs" />
     <Compile Include="Patches\CardDataPatches.cs" />
     <Compile Include="Patches\ExperiencePatches.cs" />
     <Compile Include="Patches\Patches.cs" />
