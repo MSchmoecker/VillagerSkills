@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -69,6 +71,10 @@
       <HintPath>$(GAME_PATH)\Stacklands_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>$(GAME_PATH)\Stacklands_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>$(GAME_PATH)\Stacklands_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
@@ -82,6 +88,7 @@
     <Compile Include="CardSkill.cs" />
     <Compile Include="Patches\AgePatches.cs" />
     <Compile Include="Patches\CardDataPatches.cs" />
+    <Compile Include="Patches\CombatPatches.cs" />
     <Compile Include="Patches\ExperiencePatches.cs" />
     <Compile Include="Patches\Patches.cs" />
     <Compile Include="Patches\SkillLevelPatches.cs" />

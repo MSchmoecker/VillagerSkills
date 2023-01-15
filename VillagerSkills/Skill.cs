@@ -6,5 +6,6 @@
         Fishing,
         Exploring,
         Building,
+        Combat,
     }
 }
