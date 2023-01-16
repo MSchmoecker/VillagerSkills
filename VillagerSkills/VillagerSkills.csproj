@@ -92,6 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardSkill.cs" />
+    <Compile Include="Helper\CodeMatcherExtensions.cs" />
+    <Compile Include="Helper\Log.cs" />
     <Compile Include="Patches\AgePatches.cs" />
     <Compile Include="Patches\CardDataPatches.cs" />
     <Compile Include="Patches\CombatPatches.cs" />
@@ -100,7 +102,6 @@
     <Compile Include="Patches\SkillLevelPatches.cs" />
     <Compile Include="TrainingDummy.cs" />
     <Compile Include="VillagerData.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

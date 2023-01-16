@@ -6,22 +6,26 @@ using UnityEngine;
 namespace VillagerSkills {
     public class VillagerData {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
-        public int Age { get; set; } = 16;
+        public int Age { get; set; } = -1;
 
         private static readonly Dictionary<string, VillagerData> VillagerDataCache = new Dictionary<string, VillagerData>();
 
-        private VillagerData() {
+        private VillagerData(int defaultAge) {
+            if (Age < 0) {
+                Age = defaultAge;
+            }
+
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
                 experience.Add(skill, 0);
             }
         }
 
-        public static VillagerData GetVillagerData(string uniqueId) {
+        public static VillagerData GetVillagerData(string uniqueId, int defaultAge) {
             if (VillagerDataCache.TryGetValue(uniqueId, out VillagerData villagerData)) {
                 return villagerData;
             }
 
-            villagerData = new VillagerData();
+            villagerData = new VillagerData(defaultAge);
             VillagerDataCache[uniqueId] = villagerData;
             return villagerData;
         }
@@ -68,6 +72,14 @@ namespace VillagerSkills {
                    $"{Environment.NewLine}" +
                    $"{Environment.NewLine}" +
                    string.Join(Environment.NewLine, experience.Select(pair => GetLevelString(pair.Key, pair.Value)));
+        }
+
+        public void CopyTo(Villager villager) {
+            VillagerData other = villager.GetVillagerData();
+
+            foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
+                other.experience[skill] = experience[skill];
+            }
         }
     }
 }
