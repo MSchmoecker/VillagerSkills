@@ -8,14 +8,7 @@ namespace VillagerSkills {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
         public int Age { get; set; } = 16;
 
-        private static readonly Dictionary<string, Skill> AttributeToSkill = new Dictionary<string, Skill>();
         private static readonly Dictionary<string, VillagerData> VillagerDataCache = new Dictionary<string, VillagerData>();
-
-        static VillagerData() {
-            foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
-                AttributeToSkill.Add(SkillToAttributeName(skill), skill);
-            }
-        }
 
         private VillagerData() {
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
@@ -38,7 +31,7 @@ namespace VillagerSkills {
         }
 
         public IEnumerable<ExtraCardData> GetExtraCardData() {
-            foreach (ExtraCardData extraCardData in experience.Select(pair => new ExtraCardData(SkillToAttributeName(pair.Key), pair.Value))) {
+            foreach (ExtraCardData extraCardData in experience.Select(pair => new ExtraCardData(pair.Key.SkillToAttribute(), pair.Value))) {
                 yield return extraCardData;
             }
 
@@ -47,7 +40,7 @@ namespace VillagerSkills {
 
         public void SetExtraCardData(List<ExtraCardData> extraData) {
             foreach (ExtraCardData data in extraData) {
-                if (AttributeToSkill.TryGetValue(data.AttributeId, out Skill skill)) {
+                if (data.AttributeId.SkillFromAttribute(out Skill skill)) {
                     experience[skill] = data.FloatValue;
                 }
 
@@ -63,10 +56,6 @@ namespace VillagerSkills {
 
         public int GetLevel(Skill skill) {
             return (int)Mathf.Floor(Mathf.Pow(experience[skill] / 5f, 0.7f) / 2f);
-        }
-
-        private static string SkillToAttributeName(Skill skill) {
-            return $"vl_xp_{skill.ToString().ToLower()}";
         }
 
         private string GetLevelString(Skill skill, float xp) {
