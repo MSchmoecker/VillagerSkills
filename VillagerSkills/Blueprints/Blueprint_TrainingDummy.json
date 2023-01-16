@@ -1,0 +1,16 @@
+{
+  "id": "blueprint_villagerskills_training_dummy",
+  "nameTerm": "villager_skills_training_dummy_name",
+  "group": "Military",
+  "icon": "TrainingDummy.png",
+  "subprints": [
+    {
+      "requiredCards": "stick, stick, stick, wood, any_villager",
+      "cardsToRemove": "",
+      "resultCard": "villager_skills_training_dummy",
+      "extraResultCards": "",
+      "time": 30,
+      "statusTerm": "blueprint_villager_skills_training_dummy_status_description"
+    }
+  ]
+}

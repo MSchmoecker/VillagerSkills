@@ -1,0 +1,4 @@
+Term	Notes	English
+villager_skills_training_dummy_name	/	Training Dummy
+villager_skills_training_dummy_description	/	A helpless training dummy
+blueprint_villager_skills_training_dummy_status_description	/	Creating a training dummy

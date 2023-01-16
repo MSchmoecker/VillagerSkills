@@ -1,0 +1,9 @@
+{
+  "id": "villager_skills_training_dummy",
+  "nameTerm": "villager_skills_training_dummy_name",
+  "descriptionTerm": "villager_skills_training_dummy_description",
+  "value": -1,
+  "type": "Mobs",
+  "icon": "TrainingDummy.png",
+  "script": "VillagerSkills.TrainingDummy"
+}

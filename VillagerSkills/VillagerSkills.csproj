@@ -51,6 +51,12 @@
       <HintPath Condition="Exists('$(R2MM_PATH)')">$(R2MM_PATH)\BepInEx\core\0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="BerryLoader">
+      <HintPath Condition="Exists('$(GAME_PATH)/BepInEx/plugins/BerryLoader/BerryLoader.dll')">$(GAME_PATH)/BepInEx/plugins/BerryLoader/BerryLoader.dll</HintPath>
+      <HintPath Condition="Exists('$(R2MM_PATH)/BepInEx/plugins/BerryLoader/BerryLoader.dll')">$(R2MM_PATH)/BepInEx/plugins/BerryLoader/BerryLoader.dll</HintPath>
+      <HintPath Condition="Exists('$(R2MM_PATH)/BepInEx/plugins/BerryLoader-BerryLoader/BerryLoader.dll')">$(R2MM_PATH)/BepInEx/plugins/BerryLoader-BerryLoader/BerryLoader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="GameScripts">
       <HintPath>$(GAME_PATH)\Stacklands_Data\Managed\publicized_assemblies\GameScripts_publicized.dll</HintPath>
       <Private>false</Private>
@@ -92,6 +98,7 @@
     <Compile Include="Patches\ExperiencePatches.cs" />
     <Compile Include="Patches\Patches.cs" />
     <Compile Include="Patches\SkillLevelPatches.cs" />
+    <Compile Include="TrainingDummy.cs" />
     <Compile Include="VillagerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Mod.cs" />
@@ -136,10 +143,22 @@
     <Message Text="R2MM Path: $(R2MM_PATH)" Importance="high" />
     <Message Text="Output Path: $(OUTPUT_PATH)" Importance="high" />
   </Target>
+  <ItemGroup>
+    <Cards Include="./Cards/*.*" />
+    <Blueprints Include="./Blueprints/*.*" />
+    <Images Include="./Images/*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="localization.txt" />
+  </ItemGroup>
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(TMP_OUTPUT_PATH)" />
     <MakeDir Directories="$(FULL_OUTPUT_PATH)" />
     <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(TMP_OUTPUT_PATH)" />
+    <Copy SourceFiles="@(Cards)" DestinationFolder="$(TMP_OUTPUT_PATH)/Cards" />
+    <Copy SourceFiles="@(Blueprints)" DestinationFolder="$(TMP_OUTPUT_PATH)/Blueprints" />
+    <Copy SourceFiles="@(Images)" DestinationFolder="$(TMP_OUTPUT_PATH)/Images" />
+    <Copy SourceFiles="localization.txt" DestinationFolder="$(TMP_OUTPUT_PATH)" />
     <ZipDirectory Overwrite="true" SourceDirectory="$(TMP_OUTPUT_PATH)" DestinationFile="$(FULL_OUTPUT_PATH)/$(OUTPUT_NAME)-Nexus.zip" />
     <Copy SourceFiles="../manifest.json" DestinationFolder="$(TMP_OUTPUT_PATH)" />
     <Copy SourceFiles="../README.md" DestinationFolder="$(TMP_OUTPUT_PATH)" />
