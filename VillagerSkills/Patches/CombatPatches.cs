@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VillagerSkills {
     [HarmonyPatch]
     public static class CombatPatches {
-        private static readonly SpecialHitType GrazeHitType = (SpecialHitType)"Graze".GetHashCode();
+        private static readonly SpecialHitType GrazeHitType = (SpecialHitType)"villager_skills_graze".GetHashCode();
 
         [HarmonyPatch(typeof(Combatable), nameof(Combatable.PerformAttack)), HarmonyPrefix]
         public static bool PerformAttackPrefix(Combatable __instance, Combatable target, Vector3 attackPos) {
@@ -12,10 +12,7 @@ namespace VillagerSkills {
                 return true;
             }
 
-            int combatLevel = villager.GetVillagerData().GetLevel(Skill.Combat);
-            int targetDefence = CombatStats.GetDefenceFromEnum(target.ProcessedCombatStats.Defence);
-
-            float grazeChance = GetGrazeChance(targetDefence, combatLevel);
+            float grazeChance = GetGrazeChance(villager, target);
             bool doGraze = Random.value < grazeChance;
             int grazeDamage = Mathf.RoundToInt(Random.value);
 
@@ -31,7 +28,7 @@ namespace VillagerSkills {
         }
 
         [HarmonyPatch(typeof(Combatable), nameof(Combatable.ShowHitText)), HarmonyPrefix]
-        public static bool DisplayGraze(Combatable origin, Vector3 targetPosition, bool isHit, int damage, Combatable effectTarget, SpecialHitType? type) {
+        public static bool DisplayGraze(Combatable origin, Combatable effectTarget, Vector3 targetPosition, bool isHit, int damage, SpecialHitType? type) {
             if (type == GrazeHitType) {
                 if (!isHit) {
                     effectTarget.CreateHitText("miss", PrefabManager.instance.MissHitText).transform.position = targetPosition;
@@ -55,6 +52,16 @@ namespace VillagerSkills {
             if (isHit && damage > 0 && origin is Villager villager) {
                 villager.GetVillagerData().AddExperience(Skill.Combat, damage);
             }
+        }
+
+        private static float GetGrazeChance(Combatable origin, Combatable target) {
+            if (origin is Villager villager) {
+                int combatLevel = villager.GetVillagerData().GetLevel(Skill.Combat);
+                int targetDefence = CombatStats.GetDefenceFromEnum(target.ProcessedCombatStats.Defence);
+                return GetGrazeChance(targetDefence, combatLevel);
+            }
+
+            return 0;
         }
 
         private static float GetGrazeChance(int targetDefence, int combatLevel) {
