@@ -68,7 +68,7 @@ namespace VillagerSkills.UI {
         }
 
         private void SortRows(VillagerColumn column) {
-            Log.LogInfo($"Sorting by {column.text.text}");
+            SkillUI.Instance.SetSortColumn(Columns.IndexOf(column));
         }
     }
 }

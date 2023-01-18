@@ -12,6 +12,7 @@ namespace VillagerSkills.UI {
         public static SkillUI Instance { get; private set; }
 
         private readonly Dictionary<string, VillagerRow> rows = new Dictionary<string, VillagerRow>();
+        private int sortColumn = 1;
 
         private void Awake() {
             Instance = this;
@@ -68,6 +69,8 @@ namespace VillagerSkills.UI {
                 Destroy(remainingRows[row].gameObject);
                 rows.Remove(row);
             }
+
+            SortRows();
         }
 
         private VillagerRow SpawnRow(Villager villager, Transform parent) {
@@ -75,6 +78,23 @@ namespace VillagerSkills.UI {
             VillagerRow villagerRow = row.gameObject.AddComponent<VillagerRow>();
             villagerRow.SpawnColumns(villager, row);
             return villagerRow;
+        }
+
+        public void SetSortColumn(int columnIndex) {
+            sortColumn = columnIndex;
+        }
+
+        private void SortRows() {
+            const int ageColumn = 1;
+
+            List<VillagerRow> sortedRows = rows.Values
+                                               .OrderByDescending(i => i.Columns[sortColumn].GetValue())
+                                               .ThenByDescending(i => i.Columns[ageColumn].GetValue())
+                                               .ToList();
+
+            for (int i = 0; i < sortedRows.Count; i++) {
+                sortedRows[i].transform.SetSiblingIndex(i);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace VillagerSkills.UI {
     public class VillagerColumn : MonoBehaviour, IPointerClickHandler {
-        public TMP_Text text;
+        private TMP_Text text;
         private VillagerRow row;
         private object cachedValue;
 
@@ -20,6 +20,10 @@ namespace VillagerSkills.UI {
 
             text.text = newValue.ToString();
             cachedValue = newValue;
+        }
+
+        public object GetValue() {
+            return cachedValue;
         }
 
         public void OnPointerClick(PointerEventData eventData) {
