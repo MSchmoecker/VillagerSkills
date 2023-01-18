@@ -15,7 +15,7 @@ namespace VillagerSkills {
                 Age = defaultAge;
             }
 
-            foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
+            foreach (Skill skill in SkillExtension.Skills) {
                 experience.Add(skill, 0);
             }
         }
@@ -77,7 +77,7 @@ namespace VillagerSkills {
         public void CopyTo(Villager villager) {
             VillagerData other = villager.GetVillagerData();
 
-            foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
+            foreach (Skill skill in SkillExtension.Skills) {
                 other.experience[skill] = experience[skill];
             }
         }

@@ -13,10 +13,12 @@ namespace VillagerSkills {
     }
 
     public static class SkillExtension {
+        public static List<Skill> Skills { get; } = new List<Skill>();
         private static readonly Dictionary<string, Skill> AttributeToSkillCache = new Dictionary<string, Skill>();
 
         static SkillExtension() {
             foreach (Skill skill in Enum.GetValues(typeof(Skill))) {
+                Skills.Add(skill);
                 AttributeToSkillCache.Add(SkillToAttributeName(skill), skill);
             }
         }
