@@ -1,0 +1,16 @@
+{
+    "name": "VillagerSkills",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d330924a47bb73b43aec64a35e1d676b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

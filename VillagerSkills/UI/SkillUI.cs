@@ -8,6 +8,12 @@ namespace VillagerSkills.UI {
         public Image background;
         public Transform headerParent;
         public Transform scrollParent;
+        public CustomButton foldButton;
+
+        private Transform foldButtonIcon;
+        private bool foldButtonWasClicked;
+        private bool isExpanded = true;
+        private RectTransform selfRect;
 
         public static SkillUI Instance { get; private set; }
 
@@ -16,19 +22,44 @@ namespace VillagerSkills.UI {
 
         private void Awake() {
             Instance = this;
+            selfRect = GetComponent<RectTransform>();
 
             Sprite sketchyBox = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "sketchy_box_2");
+            Sprite minimizeButton = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "minimizebutton");
 
             Mod.ColumnPrefab.transform.Find("Background").GetComponent<Image>().sprite = sketchyBox;
             background.sprite = sketchyBox;
+            foldButton.Image.sprite = sketchyBox;
+            foldButtonIcon = foldButton.transform.Find("Icon");
+            foldButtonIcon.GetComponent<Image>().sprite = minimizeButton;
 
             RebuildHeader();
             RebuildRows();
         }
 
+
         private void Update() {
-            if (Time.frameCount % 5 == 0) {
+            if (foldButtonWasClicked && !foldButton.IsClicked) {
+                isExpanded = !isExpanded;
+                AudioManager.me.PlaySound2D(AudioManager.me.Click, 1f, 0.1f);
+            }
+
+            foldButtonWasClicked = foldButton.IsClicked;
+
+            if (isExpanded && Time.frameCount % 5 == 0) {
                 RefreshRows();
+            }
+
+            if (isExpanded) {
+                selfRect.anchoredPosition = new Vector2(selfRect.anchoredPosition.x, -selfRect.sizeDelta.y / 2f - 5f);
+                foldButtonIcon.rotation = Quaternion.Euler(0f, 0f, 90f);
+            } else {
+                selfRect.anchoredPosition = new Vector2(selfRect.anchoredPosition.x, selfRect.sizeDelta.y / 2f - 12f);
+                foldButtonIcon.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+
+            if (scrollParent.gameObject.activeInHierarchy != isExpanded) {
+                scrollParent.gameObject.SetActive(isExpanded);
             }
         }
 

@@ -6,5 +6,6 @@ namespace VillagerSkills.UI {
         public Image background;
 		public Transform headerParent;
         public Transform scrollParent;
+        public CustomButton foldButton;
     }
 }
