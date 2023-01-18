@@ -5,25 +5,9 @@ using UnityEngine;
 
 namespace VillagerSkills.UI {
     public class VillagerRow : MonoBehaviour {
-        public List<Column> Columns { get; } = new List<Column>();
-
-        public class Column {
-            private readonly TMP_Text text;
-            private object cachedValue;
-
-            public Column(TMP_Text text) {
-                this.text = text;
-            }
-
-            public void Update(object newValue) {
-                if (cachedValue != null && cachedValue.Equals(newValue)) {
-                    return;
-                }
-
-                text.text = newValue.ToString();
-                cachedValue = newValue;
-            }
-        }
+        public List<VillagerColumn> Columns { get; } = new List<VillagerColumn>();
+        private bool isHeader;
+        private string villagerUniqueId;
 
         public void SpawnColumns(Villager villager, Transform parent) {
             SpawnColumn("Name", parent);
@@ -33,8 +17,11 @@ namespace VillagerSkills.UI {
                 SpawnColumn(skill.ToString(), parent);
             }
 
+            isHeader = !villager;
+
             if (villager) {
                 UpdateColumns(villager);
+                villagerUniqueId = villager.UniqueId;
             }
         }
 
@@ -45,19 +32,43 @@ namespace VillagerSkills.UI {
             textComponent.text = text;
             textComponent.font = FontManager.instance.GetFont(FontType.Regular);
 
-            Columns.Add(new Column(textComponent));
+            VillagerColumn villagerColumn = column.AddComponent<VillagerColumn>();
+            villagerColumn.Init(textComponent, this);
+            Columns.Add(villagerColumn);
         }
 
         public void UpdateColumns(Villager villager) {
             VillagerData villagerData = villager.GetVillagerData();
             int index = 0;
 
-            Columns[index++].Update(villager.Name);
-            Columns[index++].Update(villagerData.Age);
+            Columns[index++].UpdateValue(villager.Name);
+            Columns[index++].UpdateValue(villagerData.Age);
 
             foreach (Skill skill in SkillExtension.Skills) {
-                Columns[index++].Update(villagerData.GetLevel(skill));
+                Columns[index++].UpdateValue(villagerData.GetLevel(skill));
             }
+        }
+
+        public void OnClick(VillagerColumn column) {
+            if (isHeader) {
+                SortRows(column);
+            } else {
+                JumpToVillager();
+            }
+        }
+
+        private void JumpToVillager() {
+            GameCard card = WorldManager.instance.GetCardWithUniqueId(villagerUniqueId);
+
+            if (card) {
+                Vector3 cardPos = card.transform.position;
+                Vector3 targetPos = new Vector3(cardPos.x, 7f, cardPos.z - 1f);
+                GameCamera.instance.cameraTargetPosition = targetPos;
+            }
+        }
+
+        private void SortRows(VillagerColumn column) {
+            Log.LogInfo($"Sorting by {column.text.text}");
         }
     }
 }

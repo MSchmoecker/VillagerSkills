@@ -116,6 +116,7 @@
     <Compile Include="Patches\UIPatches.cs" />
     <Compile Include="TrainingDummy.cs" />
     <Compile Include="UI\SkillUI.cs" />
+    <Compile Include="UI\VillagerColumn.cs" />
     <Compile Include="UI\VillagerRow.cs" />
     <Compile Include="VillagerData.cs" />
     <Compile Include="Mod.cs" />
