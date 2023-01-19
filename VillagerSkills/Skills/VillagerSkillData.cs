@@ -4,13 +4,13 @@ using System.Linq;
 using UnityEngine;
 
 namespace VillagerSkills {
-    public class VillagerData {
+    public class VillagerSkillData : ISkillData {
         private readonly Dictionary<Skill, float> experience = new Dictionary<Skill, float>();
         public int Age { get; set; } = -1;
 
-        private static readonly Dictionary<string, VillagerData> VillagerDataCache = new Dictionary<string, VillagerData>();
+        private static readonly Dictionary<string, VillagerSkillData> VillagerDataCache = new Dictionary<string, VillagerSkillData>();
 
-        private VillagerData(int defaultAge) {
+        private VillagerSkillData(int defaultAge) {
             if (Age < 0) {
                 Age = defaultAge;
             }
@@ -20,18 +20,22 @@ namespace VillagerSkills {
             }
         }
 
-        public static VillagerData GetVillagerData(string uniqueId, int defaultAge) {
-            if (VillagerDataCache.TryGetValue(uniqueId, out VillagerData villagerData)) {
+        public static VillagerSkillData GetVillagerData(string uniqueId, int defaultAge) {
+            if (VillagerDataCache.TryGetValue(uniqueId, out VillagerSkillData villagerData)) {
                 return villagerData;
             }
 
-            villagerData = new VillagerData(defaultAge);
+            villagerData = new VillagerSkillData(defaultAge);
             VillagerDataCache[uniqueId] = villagerData;
             return villagerData;
         }
 
         public void AddExperience(Skill skill, float xp) {
             experience[skill] += xp;
+        }
+
+        public void SetExperience(Skill skill, float xp) {
+            experience[skill] = xp;
         }
 
         public IEnumerable<ExtraCardData> GetExtraCardData() {
@@ -75,10 +79,10 @@ namespace VillagerSkills {
         }
 
         public void CopyTo(Villager villager) {
-            VillagerData other = villager.GetVillagerData();
+            ISkillData other = villager.GetVillagerData();
 
             foreach (Skill skill in SkillExtension.Skills) {
-                other.experience[skill] = experience[skill];
+                other.SetExperience(skill, experience[skill]);
             }
         }
     }

@@ -38,7 +38,7 @@ namespace VillagerSkills.UI {
         }
 
         public void UpdateColumns(Villager villager) {
-            VillagerData villagerData = villager.GetVillagerData();
+            ISkillData villagerData = villager.GetVillagerData();
             int index = 0;
 
             Columns[index++].UpdateValue(villager.Name);

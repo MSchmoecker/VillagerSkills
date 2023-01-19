@@ -76,7 +76,7 @@ namespace VillagerSkills.UI {
                 Destroy(child.gameObject);
             }
 
-            List<Villager> villagers = WorldManager.instance.GetCards<Villager>();
+            List<Villager> villagers = GetVillagers();
 
             foreach (Villager villager in villagers) {
                 rows.Add(villager.UniqueId, SpawnRow(villager, scrollParent));
@@ -84,7 +84,7 @@ namespace VillagerSkills.UI {
         }
 
         private void RefreshRows() {
-            List<Villager> villagers = WorldManager.instance.GetCards<Villager>();
+            List<Villager> villagers = GetVillagers();
             Dictionary<string, VillagerRow> remainingRows = new Dictionary<string, VillagerRow>(rows);
 
             foreach (Villager villager in villagers) {
@@ -126,6 +126,10 @@ namespace VillagerSkills.UI {
             for (int i = 0; i < sortedRows.Count; i++) {
                 sortedRows[i].transform.SetSiblingIndex(i);
             }
+        }
+
+        private List<Villager> GetVillagers() {
+            return WorldManager.instance.GetCards<Villager>().Where(i => i.Id != "trained_monkey").ToList();
         }
     }
 }

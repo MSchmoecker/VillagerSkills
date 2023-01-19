@@ -1,11 +1,21 @@
 ﻿namespace VillagerSkills {
     public static class VillagerDataExtension {
-        public static VillagerData GetVillagerData(this Villager villager) {
-            return VillagerData.GetVillagerData(villager.UniqueId, 16);
+        private static readonly MonkeySkillData MonkeySkillData = new MonkeySkillData();
+
+        public static ISkillData GetVillagerData(this Villager villager) {
+            if (villager.Id == "trained_monkey") {
+                return MonkeySkillData;
+            }
+
+            return VillagerSkillData.GetVillagerData(villager.UniqueId, 16);
         }
 
-        public static VillagerData GetVillagerData(this Kid villager) {
-            return VillagerData.GetVillagerData(villager.UniqueId, 0);
+        public static ISkillData GetVillagerData(this Kid villager) {
+            if (villager.Id == "trained_monkey") {
+                return MonkeySkillData;
+            }
+
+            return VillagerSkillData.GetVillagerData(villager.UniqueId, 0);
         }
     }
 }
