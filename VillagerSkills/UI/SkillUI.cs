@@ -24,14 +24,25 @@ namespace VillagerSkills.UI {
             Instance = this;
             selfRect = GetComponent<RectTransform>();
 
-            Sprite sketchyBox = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "sketchy_box_2");
+            Sprite sketchyBox1 = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "sketchy_box_1");
+            Sprite sketchyBox2 = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "sketchy_box_2");
             Sprite minimizeButton = Resources.FindObjectsOfTypeAll<Sprite>().FirstOrDefault(i => i.name == "minimizebutton");
 
-            Mod.ColumnPrefab.transform.Find("Background").GetComponent<Image>().sprite = sketchyBox;
-            background.sprite = sketchyBox;
-            foldButton.Image.sprite = sketchyBox;
+            Mod.ColumnPrefab.transform.Find("Background").GetComponent<Image>().sprite = sketchyBox2;
+            background.sprite = sketchyBox2;
+            foldButton.Image.sprite = sketchyBox2;
             foldButtonIcon = foldButton.transform.Find("Icon");
             foldButtonIcon.GetComponent<Image>().sprite = minimizeButton;
+
+            foreach (ScrollRect scrollRect in GetComponentsInChildren<ScrollRect>()) {
+                if (scrollRect.verticalScrollbar && scrollRect.verticalScrollbar.targetGraphic is Image sliderImage) {
+                    sliderImage.sprite = sketchyBox1;
+                }
+
+                if (scrollRect.horizontalScrollbar && scrollRect.horizontalScrollbar.targetGraphic is Image sliderImage2) {
+                    sliderImage2.sprite = sketchyBox1;
+                }
+            }
 
             RebuildHeader();
             RebuildRows();
